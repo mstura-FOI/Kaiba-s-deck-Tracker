@@ -1,5 +1,9 @@
 package com.kaiba.tracker.data
 
+data class DataCard(
+    var data: List<YuGiOhCard>
+)
+
 data class YuGiOhCard(
     val id: Int,
     val name: String,
