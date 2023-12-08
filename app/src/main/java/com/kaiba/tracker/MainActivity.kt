@@ -1,5 +1,6 @@
 package com.kaiba.tracker
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -46,6 +47,7 @@ class MainActivity : ComponentActivity() {
 
 
 
+@SuppressLint("SuspiciousIndentation")
 suspend fun GetCard(): YuGiOhCard? {
     var result: YuGiOhCard? = null
 
