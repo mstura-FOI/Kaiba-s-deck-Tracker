@@ -1,6 +1,7 @@
 package com.kaiba.tracker.uiComponents
 
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,10 +16,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.pointer.PointerIcon.Companion.Text
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.kaiba.tracker.R
 import com.kaiba.tracker.data.YuGiOhCard
  var yuGiOhCard:YuGiOhCard? = null
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,7 +38,7 @@ fun CardInfo(
             defaultElevation = 12.dp
         ),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            containerColor = Color(R.color.Dark_Main),
         ),
         modifier = Modifier
             .size(width = 240.dp, height = 100.dp)
@@ -48,12 +54,13 @@ fun CardInfo(
                        .padding(16.dp),
                    textAlign = TextAlign.Center,
                )
-               Text(text = if(card == null) "Nema karte" else card.type,
+               Text(text = if(card == null) "Nema karte" else "Type:${card.type}",
                    modifier = Modifier.padding(16.dp,0.dp,0.dp,0.dp),
                    textAlign = TextAlign.Center
                )
            }
             Spacer(modifier = Modifier.padding(10.dp))
+            Image(painter = painterResource(id = R.drawable.img), contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.padding(12.dp))
         }
 
 
