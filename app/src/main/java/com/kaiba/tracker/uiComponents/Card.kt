@@ -38,7 +38,7 @@ fun CardInfo(
             defaultElevation = 12.dp
         ),
         colors = CardDefaults.cardColors(
-            containerColor = Color(R.color.Dark_Main),
+            containerColor = Color(0xff3d3e51),
         ),
         modifier = Modifier
             .size(width = 240.dp, height = 100.dp)
@@ -53,10 +53,12 @@ fun CardInfo(
                    modifier = Modifier
                        .padding(16.dp),
                    textAlign = TextAlign.Center,
+                   color = Color.White
                )
                Text(text = if(card == null) "Nema karte" else "Type:${card.type}",
                    modifier = Modifier.padding(16.dp,0.dp,0.dp,0.dp),
-                   textAlign = TextAlign.Center
+                   textAlign = TextAlign.Center,
+                   color = Color.White
                )
            }
             Spacer(modifier = Modifier.padding(10.dp))
