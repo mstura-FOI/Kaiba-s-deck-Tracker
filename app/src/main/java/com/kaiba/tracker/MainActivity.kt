@@ -39,6 +39,7 @@ class MainActivity : ComponentActivity() {
 
             LaunchedEffect(true) {
                var card = GetCard()
+
             }
 
           }
