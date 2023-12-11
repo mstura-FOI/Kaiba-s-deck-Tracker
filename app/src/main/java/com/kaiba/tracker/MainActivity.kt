@@ -1,11 +1,13 @@
 package com.kaiba.tracker
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -17,13 +19,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.kaiba.tracker.data.DataCard
 import com.kaiba.tracker.data.YuGiOhCard
 import com.kaiba.tracker.httpRequestManager.RetrofitHelper
 import com.kaiba.tracker.httpRequestManager.YugiService
 import com.kaiba.tracker.ui.theme.KaibasTrackerTheme
+import com.kaiba.tracker.uiComponents.CardInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
 import okhttp3.Dispatcher
 
@@ -37,8 +42,17 @@ class MainActivity : ComponentActivity() {
             }
 
             LaunchedEffect(true) {
-               var card = GetCard()
+
+                    card = GetCard()
+                    Log.i("yugi", card.toString())
+
             }
+            Column(
+                modifier = Modifier.fillMaxSize().padding(8.dp)
+            ) {
+                CardInfo(card = card)
+            }
+
 
           }
         }
@@ -46,6 +60,7 @@ class MainActivity : ComponentActivity() {
 
 
 
+@SuppressLint("SuspiciousIndentation")
 suspend fun GetCard(): YuGiOhCard? {
     var result: YuGiOhCard? = null
 
@@ -62,7 +77,7 @@ suspend fun GetCard(): YuGiOhCard? {
             }
         }
 
-
+    Log.i("yugi","w: ${result}")
 
     return result
 }
