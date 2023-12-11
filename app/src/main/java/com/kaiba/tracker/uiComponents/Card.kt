@@ -53,6 +53,7 @@ fun CardInfo(
         modifier = Modifier
             .fillMaxWidth()
             .height(120.dp)
+            .padding(0.dp,8.dp)
 
     ) {
         Row(
@@ -81,7 +82,7 @@ fun CardInfo(
                     .data(if(card == null) "" else "${card.card_images[0].image_url_cropped}")
                     .crossfade(true)
                     .build(),
-                placeholder = painterResource(R.drawable.img),
+                placeholder = painterResource(R.drawable.baseline_incomplete_circle_24),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.padding(12.dp)

@@ -26,6 +26,7 @@ import com.kaiba.tracker.httpRequestManager.RetrofitHelper
 import com.kaiba.tracker.httpRequestManager.YugiService
 import com.kaiba.tracker.ui.theme.KaibasTrackerTheme
 import com.kaiba.tracker.uiComponents.CardInfo
+import com.kaiba.tracker.uiComponents.ScrollableList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.isActive
@@ -37,21 +38,17 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            var card by remember {
-                mutableStateOf<YuGiOhCard?>(null)
+            var cards by remember {
+                mutableStateOf<List<YuGiOhCard?>?>(null)
             }
 
             LaunchedEffect(true) {
 
-                    card = GetCard()
-                    Log.i("yugi", card.toString())
+                    cards = GetCard()
+                    Log.i("yugi", cards.toString())
 
             }
-            Column(
-                modifier = Modifier.fillMaxSize().padding(8.dp)
-            ) {
-                CardInfo(card = card)
-            }
+            ScrollableList(cards = cards)
 
 
           }
@@ -61,16 +58,16 @@ class MainActivity : ComponentActivity() {
 
 
 @SuppressLint("SuspiciousIndentation")
-suspend fun GetCard(): YuGiOhCard? {
-    var result: YuGiOhCard? = null
+suspend fun GetCard(): List<YuGiOhCard?>? {
+    var result: List<YuGiOhCard?>? = null
 
 
           withContext(Dispatchers.IO) {
             val cards = RetrofitHelper.getInstance().create(YugiService::class.java)
-            val response = cards.getCard("Dark Magician")
+            val response = cards.getCards()
 
             if (response != null) {
-               result = response.body()!!.data[0]
+               result = response.body()!!.data
 
             } else {
                result = null
