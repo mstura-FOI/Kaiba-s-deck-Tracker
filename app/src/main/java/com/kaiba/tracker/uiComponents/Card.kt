@@ -21,9 +21,11 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.pointer.PointerIcon.Companion.Text
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.kaiba.tracker.R
 import com.kaiba.tracker.data.YuGiOhCard
  var yuGiOhCard:YuGiOhCard? = null
@@ -53,16 +55,22 @@ fun CardInfo(
                    modifier = Modifier
                        .padding(16.dp),
                    textAlign = TextAlign.Center,
-                   color = Color.White
+                   color = Color.White,
+                   fontWeight = FontWeight.Bold
+
                )
                Text(text = if(card == null) "Nema karte" else "Type:${card.type}",
-                   modifier = Modifier.padding(16.dp,0.dp,0.dp,0.dp),
+                   modifier = Modifier.padding(17.dp,0.dp,0.dp,0.dp),
                    textAlign = TextAlign.Center,
-                   color = Color.White
+                   color = Color.White,
+                    fontSize = 8.sp
                )
            }
             Spacer(modifier = Modifier.padding(10.dp))
-            Image(painter = painterResource(id = R.drawable.img), contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.padding(12.dp))
+            Image(painter = painterResource(id = R.drawable.img),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.padding(12.dp))
         }
 
 

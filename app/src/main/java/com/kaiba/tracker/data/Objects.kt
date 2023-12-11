@@ -17,20 +17,20 @@ data class YuGiOhCard(
     val attribute: String,
     val archetype: String,
     val ygoprodeckUrl: String,
-    val cardImages: List<CardImage>,
-    val cardPrices: List<CardPrice>
+    val card_images: List<CardImage>,
+    val card_prices: List<CardPrice>
 )
 
 data class CardImage(
     val id: Int,
     val imageUrl: String,
     val imageUrlSmall: String,
-    val imageUrlCropped: String
+    val image_url_cropped: String
 )
 
 data class CardPrice(
-    val cardmarketPrice: String,
-    val tcgplayerPrice: String,
+    val cardmarket_price: String,
+    val tcgplayer_price: String,
     val ebayPrice: String,
     val amazonPrice: String,
     val coolstuffincPrice: String

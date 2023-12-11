@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
 
             LaunchedEffect(true) {
                var card = GetCard()
-
+                Log.i("yugi",card.toString())
             }
 
           }
@@ -65,7 +65,7 @@ suspend fun GetCard(): YuGiOhCard? {
             }
         }
 
-
+    Log.i("yugi","w: ${result}")
 
     return result
 }
