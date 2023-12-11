@@ -76,7 +76,13 @@ class MainActivity : ComponentActivity() {
 
             }else{
 
-                ScrollableList(cards = cards)
+                ScrollableList(cards = cards){card->
+                    Log.i("card",card.toString())
+                    if (card != null) {
+                        // Do something with the clicked card
+                        Log.d("CardClick", "Clicked on card: ${card.name}")
+                    }
+                }
             }
 
 

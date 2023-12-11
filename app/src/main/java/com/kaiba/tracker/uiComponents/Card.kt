@@ -2,7 +2,9 @@ package com.kaiba.tracker.uiComponents
 
 
 import android.icu.text.ListFormatter.Width
+import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -41,7 +43,9 @@ import com.kaiba.tracker.data.YuGiOhCard
 @Composable
 
 fun CardInfo(
-    card : YuGiOhCard?
+    card : YuGiOhCard?,
+    modifier: Modifier = Modifier,
+
 ){
     Card(
         elevation  = CardDefaults.cardElevation(
@@ -54,6 +58,10 @@ fun CardInfo(
             .fillMaxWidth()
             .height(120.dp)
             .padding(0.dp,8.dp)
+            .clickable {
+                Log.i("card",card!!.name.toString())
+
+            }
 
     ) {
         Row(
@@ -95,8 +103,3 @@ fun CardInfo(
     }
 }
 
-@Composable
-@Preview
-fun CardPreview(){
-    CardInfo(yuGiOhCard)
-}
