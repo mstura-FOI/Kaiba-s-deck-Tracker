@@ -25,7 +25,7 @@ suspend fun GetCard(): List<YuGiOhCard?>? {
         }
     }
 
-    Log.i("yugi", "w: ${result}")
+
 
     return result
 }
@@ -45,7 +45,7 @@ suspend fun GetCards(name: String): List<YuGiOhCard?>? {
         }
     }
 
-    Log.i("yugi", "w: ${result}")
+
 
     return result
 }

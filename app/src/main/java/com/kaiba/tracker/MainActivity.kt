@@ -30,6 +30,7 @@ import com.kaiba.tracker.api.GetCard
 import com.kaiba.tracker.api.GetCards
 import com.kaiba.tracker.data.YuGiOhCard
 import com.kaiba.tracker.uiComponents.CardSearch
+import com.kaiba.tracker.uiComponents.LoadingMainPage
 import com.kaiba.tracker.uiComponents.ScrollableList
 import kotlinx.coroutines.launch
 
@@ -52,36 +53,13 @@ class MainActivity : ComponentActivity() {
                 loading = false
             }
             if (loading){
-                Column(modifier = Modifier
-                    .fillMaxSize()
-                    .padding(24.dp)
-                , verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.width(64.dp),
-                        color = Color.DarkGray,
-
-                        )
-                    Spacer(modifier = Modifier.padding(0.dp,24.dp))
-                    Text(text = stringResource(id = R.string.loading), fontWeight = FontWeight.Bold)
-            }
-
+                LoadingMainPage()
             }else{
-
                 Column(modifier = Modifier.padding(12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                     CardSearch(cards){searchedCards->
                     }
-
-
                 }
-
             }
-
-
-
-
-
           }
         }
     }

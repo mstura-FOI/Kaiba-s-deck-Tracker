@@ -80,12 +80,33 @@ fun CardInfo(
                    fontWeight = FontWeight.Bold
 
                )
-               Text(text = if(card == null) "Nema karte" else "Type:${card.type}",
+               Text(text = if(card == null) "Nema karte" else "Type: ${card.type}",
                    modifier = Modifier.padding(17.dp,0.dp,0.dp,0.dp),
                    textAlign = TextAlign.Center,
                    color = Color.White,
-                    fontSize = 8.sp
+                    fontSize = 12.sp
                )
+               if (card != null) {
+                   if(card.type.toString() == "Spell Card" || card.type.toString() == "Trap Card"){
+
+                   }else{
+                       Row{
+                           Text(text = if(card == null) "Nema karte" else "Attack: ${card.atk}",
+                               modifier = Modifier.padding(17.dp,0.dp,0.dp,0.dp),
+                               textAlign = TextAlign.Center,
+                               color = Color.White,
+                               fontSize = 12.sp
+                           )
+                           Text(text = if(card == null) "Nema karte" else "Defense: ${card.def}",
+                               modifier = Modifier.padding(17.dp,0.dp,0.dp,0.dp),
+                               textAlign = TextAlign.Center,
+                               color = Color.White,
+                               fontSize = 12.sp
+                           )
+                       }
+                   }
+               }
+
            }
             Spacer(modifier = Modifier.padding(10.dp))
             AsyncImage(
