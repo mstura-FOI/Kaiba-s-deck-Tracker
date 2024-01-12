@@ -2,7 +2,9 @@ package com.kaiba.tracker.uiComponents
 
 
 import android.icu.text.ListFormatter.Width
+import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -41,8 +43,13 @@ import com.kaiba.tracker.data.YuGiOhCard
 @Composable
 
 fun CardInfo(
-    card : YuGiOhCard?
+    card : YuGiOhCard?,
+    modifier: Modifier = Modifier,
+
 ){
+
+
+
     Card(
         elevation  = CardDefaults.cardElevation(
             defaultElevation = 12.dp
@@ -53,6 +60,11 @@ fun CardInfo(
         modifier = Modifier
             .fillMaxWidth()
             .height(120.dp)
+            .padding(0.dp,8.dp)
+            .clickable {
+                Log.i("card",card!!.name.toString())
+
+            }
 
     ) {
         Row(
@@ -68,12 +80,33 @@ fun CardInfo(
                    fontWeight = FontWeight.Bold
 
                )
-               Text(text = if(card == null) "Nema karte" else "Type:${card.type}",
+               Text(text = if(card == null) "Nema karte" else "Type: ${card.type}",
                    modifier = Modifier.padding(17.dp,0.dp,0.dp,0.dp),
                    textAlign = TextAlign.Center,
                    color = Color.White,
-                    fontSize = 8.sp
+                    fontSize = 12.sp
                )
+               if (card != null) {
+                   if(card.type.toString() == "Spell Card" || card.type.toString() == "Trap Card"){
+
+                   }else{
+                       Row{
+                           Text(text = if(card == null) "Nema karte" else "Attack: ${card.atk}",
+                               modifier = Modifier.padding(17.dp,0.dp,0.dp,0.dp),
+                               textAlign = TextAlign.Center,
+                               color = Color.White,
+                               fontSize = 12.sp
+                           )
+                           Text(text = if(card == null) "Nema karte" else "Defense: ${card.def}",
+                               modifier = Modifier.padding(17.dp,0.dp,0.dp,0.dp),
+                               textAlign = TextAlign.Center,
+                               color = Color.White,
+                               fontSize = 12.sp
+                           )
+                       }
+                   }
+               }
+
            }
             Spacer(modifier = Modifier.padding(10.dp))
             AsyncImage(
@@ -81,7 +114,7 @@ fun CardInfo(
                     .data(if(card == null) "" else "${card.card_images[0].image_url_cropped}")
                     .crossfade(true)
                     .build(),
-                placeholder = painterResource(R.drawable.img),
+                placeholder = painterResource(R.drawable.baseline_incomplete_circle_24),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.padding(12.dp)
@@ -94,8 +127,3 @@ fun CardInfo(
     }
 }
 
-@Composable
-@Preview
-fun CardPreview(){
-    CardInfo(yuGiOhCard)
-}

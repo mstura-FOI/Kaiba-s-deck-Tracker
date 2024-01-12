@@ -5,82 +5,64 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.kaiba.tracker.data.DataCard
+import com.kaiba.tracker.api.GetCard
+import com.kaiba.tracker.api.GetCards
 import com.kaiba.tracker.data.YuGiOhCard
-import com.kaiba.tracker.httpRequestManager.RetrofitHelper
-import com.kaiba.tracker.httpRequestManager.YugiService
-import com.kaiba.tracker.ui.theme.KaibasTrackerTheme
-import com.kaiba.tracker.uiComponents.CardInfo
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.isActive
-import kotlinx.coroutines.withContext
-import okhttp3.Dispatcher
+import com.kaiba.tracker.uiComponents.CardSearch
+import com.kaiba.tracker.uiComponents.LoadingMainPage
+import com.kaiba.tracker.uiComponents.ScrollableList
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
+    @SuppressLint("CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            var card by remember {
-                mutableStateOf<YuGiOhCard?>(null)
+
+            var cards by remember {
+                mutableStateOf<List<YuGiOhCard?>?>(null)
             }
+            var currentProgress by remember { mutableStateOf(0f) }
+            var loading by remember { mutableStateOf(true) }
+            val scope = rememberCoroutineScope()
 
-            LaunchedEffect(true) {
-
-                    card = GetCard()
-                    Log.i("yugi", card.toString())
-
+            scope.launch{
+                cards = GetCard()
+                loading = false
             }
-            Column(
-                modifier = Modifier.fillMaxSize().padding(8.dp)
-            ) {
-                CardInfo(card = card)
+            if (loading){
+                LoadingMainPage()
+            }else{
+                Column(modifier = Modifier.padding(12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                    CardSearch(cards){searchedCards->
+                    }
+                }
             }
-
-
           }
         }
     }
-
-
-
-@SuppressLint("SuspiciousIndentation")
-suspend fun GetCard(): YuGiOhCard? {
-    var result: YuGiOhCard? = null
-
-
-          withContext(Dispatchers.IO) {
-            val cards = RetrofitHelper.getInstance().create(YugiService::class.java)
-            val response = cards.getCard("Dark Magician")
-
-            if (response != null) {
-               result = response.body()!!.data[0]
-
-            } else {
-               result = null
-            }
-        }
-
-    Log.i("yugi","w: ${result}")
-
-    return result
-}
 
 
 
