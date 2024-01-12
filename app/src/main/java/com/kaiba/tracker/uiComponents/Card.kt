@@ -47,6 +47,9 @@ fun CardInfo(
     modifier: Modifier = Modifier,
 
 ){
+
+
+
     Card(
         elevation  = CardDefaults.cardElevation(
             defaultElevation = 12.dp
